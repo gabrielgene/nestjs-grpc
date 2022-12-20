@@ -1,0 +1,37 @@
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Config {
+  id   String @id @default(uuid())
+  name String
+
+  components Component[]
+}
+
+model Component {
+  id   String @id @default(uuid())
+  type String
+
+  config   Config? @relation(fields: [configId], references: [id])
+  configId String?
+
+  params Params[]
+}
+
+model Params {
+  id   String @id @default(uuid())
+  type String
+
+  component   Component? @relation(fields: [componentId], references: [id])
+  componentId String?
+
+  stringValue     String?
+  stringListValue String?
+  numberValue     Float?
+}
