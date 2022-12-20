@@ -1,0 +1,51 @@
+syntax = "proto3";
+import "google/protobuf/empty.proto";
+import "google/protobuf/timestamp.proto";
+
+package config;
+
+service ConfigService {
+  rpc GetConfigs (google.protobuf.Empty) returns (ConfigList) {}
+  rpc CreateConfig (ConfigInput) returns (Config) {}
+}
+
+message ConfigInput {
+  string name = 1;
+  repeated ComponentsInput components = 2;
+}
+
+message ComponentsInput {
+  string type = 1;
+  repeated ParamsInput params = 2;
+}
+
+message ParamsInput {
+  string type = 1;
+  string stringValue = 2;
+  repeated string stringListValue = 3;
+  int32 numberValue = 4;
+}
+
+message ConfigList {
+  repeated Config configs = 1;
+}
+
+message Config {
+  string id = 1;
+  string name = 2;
+  repeated Component components = 3;
+}
+
+message Component {
+  string id = 1;
+  string type = 2;
+  repeated Params params = 3;
+}
+
+message Params {
+  string id = 1;
+  string type = 2;
+  string stringValue = 3;
+  string stringListValue = 4;
+  int32 numberValue = 5;
+}

@@ -1,0 +1,40 @@
+curl --request POST \
+  --url http://localhost:3000/config \
+  --header 'Content-Type: application/json' \
+  --data '{
+	"name": "my-config",
+	"components": [
+		{
+			"type": "Source",
+			"params": [
+				{
+					"type": "language",
+					"stringValue": "pt-br"
+				},
+				{
+					"type": "keywords",
+					"stringListValue": [
+						"test",
+						"test1"
+					]
+				}
+			]
+		},
+		{
+			"type": "AIModel",
+			"params": [
+				{
+					"type": "treshold",
+					"numberValue": 12
+				},
+				{
+					"type": "classes",
+					"stringListValue": [
+						"positive_sentiment ",
+						"negative_sentiment"
+					]
+				}
+			]
+		}
+	]
+}'
